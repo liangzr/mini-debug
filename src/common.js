@@ -256,7 +256,7 @@ function setup(env) {
 		return val;
 	}
 
-	createDebug.enable(createDebug.load());
+	createDebug.load().then(createDebug.enable);
 
 	return createDebug;
 }

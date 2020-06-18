@@ -8,7 +8,7 @@ exports.formatArgs = formatArgs;
 exports.save = save;
 exports.load = load;
 exports.useColors = useColors;
-exports.storage = localstorage();
+exports.storage = require('./storage')();
 
 /**
  * Colors.
@@ -187,9 +187,9 @@ exports.log = console.debug || console.log || (() => {});
 function save(namespaces) {
 	try {
 		if (namespaces) {
-			exports.storage.setItem('debug', namespaces);
+			exports.storage.setItem('mini-debug', namespaces);
 		} else {
-			exports.storage.removeItem('debug');
+			exports.storage.removeItem('mini-debug');
 		}
 	} catch (error) {
 		// Swallow
@@ -204,20 +204,10 @@ function save(namespaces) {
  * @api private
  */
 function load() {
-	let r;
-	try {
-		r = exports.storage.getItem('debug');
-	} catch (error) {
-		// Swallow
-		// XXX (@Qix-) should we be logging these?
-	}
-
-	// If debug isn't set in LS, and we're in Electron, try to load $DEBUG
-	if (!r && typeof process !== 'undefined' && 'env' in process) {
-		r = process.env.DEBUG;
-	}
+	r = exports.storage.getItem('mini-debug');
 
 	return r;
+	return exports.storage.getItem('mini-debug')
 }
 
 /**

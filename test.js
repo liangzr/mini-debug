@@ -3,7 +3,7 @@
 const assert = require('assert');
 const debug = require('./src');
 
-describe('debug', () => {
+describe('mini-debug', () => {
 	it('passes a basic sanity check', () => {
 		const log = debug('test');
 		log.enabled = true;
