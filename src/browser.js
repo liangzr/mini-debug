@@ -187,9 +187,9 @@ exports.log = console.debug || console.log || (() => {});
 function save(namespaces) {
 	try {
 		if (namespaces) {
-			exports.storage.setItem('mini-debug', namespaces);
+			exports.storage.setItem('tiny-debug', namespaces);
 		} else {
-			exports.storage.removeItem('mini-debug');
+			exports.storage.removeItem('tiny-debug');
 		}
 	} catch (error) {
 		// Swallow
@@ -204,10 +204,10 @@ function save(namespaces) {
  * @api private
  */
 function load() {
-	r = exports.storage.getItem('mini-debug');
+	r = exports.storage.getItem('tiny-debug');
 
 	return r;
-	return exports.storage.getItem('mini-debug')
+	return exports.storage.getItem('tiny-debug')
 }
 
 /**

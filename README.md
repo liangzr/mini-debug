@@ -1,4 +1,4 @@
-# mini-debug 
+# tiny-debug 
 [![Build Status](https://travis-ci.org/visionmedia/debug.svg?branch=master)](https://travis-ci.org/visionmedia/debug)  [![Coverage Status](https://coveralls.io/repos/github/visionmedia/debug/badge.svg?branch=master)](https://coveralls.io/github/visionmedia/debug?branch=master)  [![Slack](https://visionmedia-community-slackin.now.sh/badge.svg)](https://visionmedia-community-slackin.now.sh/) [![OpenCollective](https://opencollective.com/debug/backers/badge.svg)](#backers)
 [![OpenCollective](https://opencollective.com/debug/sponsors/badge.svg)](#sponsors)
 
@@ -20,7 +20,7 @@ $ npm install debug
 Example [_app.js_](./examples/node/app.js):
 
 ```js
-var debug = require('mini-debug')('http')
+var debug = require('tiny-debug')('http')
   , http = require('http')
   , name = 'My App';
 
@@ -43,8 +43,8 @@ require('./worker');
 Example [_worker.js_](./examples/node/worker.js):
 
 ```js
-var a = require('mini-debug')('worker:a')
-  , b = require('mini-debug')('worker:b');
+var a = require('tiny-debug')('worker:a')
+  , b = require('tiny-debug')('worker:b');
 
 function work() {
   a('doing lots of uninteresting work');
@@ -200,7 +200,7 @@ For example, if you wanted to add support for rendering a Buffer as hex with
 `%h`, you could do something like:
 
 ```js
-const createDebug = require('mini-debug')
+const createDebug = require('tiny-debug')
 createDebug.formatters.h = (v) => {
   return v.toString('hex')
 }
@@ -249,7 +249,7 @@ setInterval(function(){
 Example [_stdout.js_](./examples/node/stdout.js):
 
 ```js
-var debug = require('mini-debug');
+var debug = require('tiny-debug');
 var error = debug('app:error');
 
 // by default stderr is used
@@ -271,7 +271,7 @@ log('still goes to stdout, but via console.info now');
 ## Extend
 You can simply extend debugger 
 ```js
-const log = require('mini-debug')('auth');
+const log = require('tiny-debug')('auth');
 
 //creates new debug instance with extended namespace
 const logSign = log.extend('sign');
@@ -287,7 +287,7 @@ logLogin('hello'); //auth:login hello
 You can also enable debug dynamically by calling the `enable()` method :
 
 ```js
-let debug = require('mini-debug');
+let debug = require('tiny-debug');
 
 console.log(1, debug.enabled('test'));
 
@@ -326,7 +326,7 @@ temporarily without knowing what was enabled to begin with.
 For example:
 
 ```js
-let debug = require('mini-debug');
+let debug = require('tiny-debug');
 debug.enable('foo:*,-foo:bar');
 let namespaces = debug.disable();
 debug.enable(namespaces);
@@ -341,7 +341,7 @@ After you've created a debug instance, you can determine whether or not it is
 enabled by checking the `enabled` property:
 
 ```javascript
-const debug = require('mini-debug')('http');
+const debug = require('tiny-debug')('http');
 
 if (debug.enabled) {
   // do stuff...
