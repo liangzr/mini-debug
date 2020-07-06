@@ -1,11 +1,11 @@
 /* eslint-env mocha */
 
-const assert = require('assert');
-const debug = require('./src');
+var assert = require('assert');
+var debug = require('./src');
 
 describe('tiny-debug', () => {
 	it('passes a basic sanity check', () => {
-		const log = debug('test');
+		var log = debug('test');
 		log.enabled = true;
 		log.log = () => {};
 
@@ -13,7 +13,7 @@ describe('tiny-debug', () => {
 	});
 
 	it('allows namespaces to be a non-string value', () => {
-		const log = debug('test');
+		var log = debug('test');
 		log.enabled = true;
 		log.log = () => {};
 
@@ -30,10 +30,10 @@ describe('tiny-debug', () => {
 	});
 
 	it('uses custom log function', () => {
-		const log = debug('test');
+		var log = debug('test');
 		log.enabled = true;
 
-		const messages = [];
+		var messages = [];
 		log.log = (...args) => messages.push(args);
 
 		log('using custom log function');
@@ -45,37 +45,37 @@ describe('tiny-debug', () => {
 
 	describe('extend namespace', () => {
 		it('should extend namespace', () => {
-			const log = debug('foo');
+			var log = debug('foo');
 			log.enabled = true;
 			log.log = () => {};
 
-			const logBar = log.extend('bar');
+			var logBar = log.extend('bar');
 			assert.deepStrictEqual(logBar.namespace, 'foo:bar');
 		});
 
 		it('should extend namespace with custom delimiter', () => {
-			const log = debug('foo');
+			var log = debug('foo');
 			log.enabled = true;
 			log.log = () => {};
 
-			const logBar = log.extend('bar', '--');
+			var logBar = log.extend('bar', '--');
 			assert.deepStrictEqual(logBar.namespace, 'foo--bar');
 		});
 
 		it('should extend namespace with empty delimiter', () => {
-			const log = debug('foo');
+			var log = debug('foo');
 			log.enabled = true;
 			log.log = () => {};
 
-			const logBar = log.extend('bar', '');
+			var logBar = log.extend('bar', '');
 			assert.deepStrictEqual(logBar.namespace, 'foobar');
 		});
 
 		it('should keep the log function between extensions', () => {
-			const log = debug('foo');
+			var log = debug('foo');
 			log.log = () => {};
 
-			const logBar = log.extend('bar');
+			var logBar = log.extend('bar');
 			assert.deepStrictEqual(log.log, logBar.log);
 		});
 	});
@@ -83,13 +83,13 @@ describe('tiny-debug', () => {
 	describe('rebuild namespaces string (disable)', () => {
 		it('handle names, skips, and wildcards', () => {
 			debug.enable('test,abc*,-abc');
-			const namespaces = debug.disable();
+			var namespaces = debug.disable();
 			assert.deepStrictEqual(namespaces, 'test,abc*,-abc');
 		});
 
 		it('handles empty', () => {
 			debug.enable('');
-			const namespaces = debug.disable();
+			var namespaces = debug.disable();
 			assert.deepStrictEqual(namespaces, '');
 			assert.deepStrictEqual(debug.names, []);
 			assert.deepStrictEqual(debug.skips, []);
@@ -97,21 +97,21 @@ describe('tiny-debug', () => {
 
 		it('handles all', () => {
 			debug.enable('*');
-			const namespaces = debug.disable();
+			var namespaces = debug.disable();
 			assert.deepStrictEqual(namespaces, '*');
 		});
 
 		it('handles skip all', () => {
 			debug.enable('-*');
-			const namespaces = debug.disable();
+			var namespaces = debug.disable();
 			assert.deepStrictEqual(namespaces, '-*');
 		});
 
 		it('names+skips same with new string', () => {
 			debug.enable('test,abc*,-abc');
-			const oldNames = [...debug.names];
-			const oldSkips = [...debug.skips];
-			const namespaces = debug.disable();
+			var oldNames = [...debug.names];
+			var oldSkips = [...debug.skips];
+			var namespaces = debug.disable();
 			assert.deepStrictEqual(namespaces, 'test,abc*,-abc');
 			debug.enable(namespaces);
 			assert.deepStrictEqual(oldNames.map(String), debug.names.map(String));

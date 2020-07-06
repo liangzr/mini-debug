@@ -142,14 +142,14 @@ function formatArgs(args) {
 		return;
 	}
 
-	const c = 'color: ' + this.color;
+	var c = 'color: ' + this.color;
 	args.splice(1, 0, c, 'color: inherit');
 
 	// The final "%c" is somewhat tricky, because there could be other
 	// arguments passed either before or after the %c, so we need to
 	// figure out the correct index to insert the CSS into
-	let index = 0;
-	let lastC = 0;
+	var index = 0;
+	var lastC = 0;
 	args[0].replace(/%[a-zA-Z%]/g, match => {
 		if (match === '%%') {
 			return;
@@ -206,7 +206,7 @@ function load() {
 
 module.exports = require('./common')(exports);
 
-const {formatters} = module.exports;
+var {formatters} = module.exports;
 
 /**
  * Map %j to `JSON.stringify()`, since no Web Inspectors do that by default.

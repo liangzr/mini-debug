@@ -42,9 +42,9 @@ function setup(env) {
 	* @api private
 	*/
 	function selectColor(namespace) {
-		let hash = 0;
+		var hash = 0;
 
-		for (let i = 0; i < namespace.length; i++) {
+		for (var i = 0; i < namespace.length; i++) {
 			hash = ((hash << 5) - hash) + namespace.charCodeAt(i);
 			hash |= 0; // Convert to 32bit integer
 		}
@@ -67,26 +67,26 @@ function setup(env) {
 				return;
 			}
 
-			const self = debug;
+			var self = debug;
 
 			args[0] = createDebug.coerce(args[0]);
 
 			if (typeof args[0] !== 'string') {
-				// Anything else let's inspect with %O
+				// Anything else var's inspect with %O
 				args.unshift('%O');
 			}
 
 			// Apply any `formatters` transformations
-			let index = 0;
+			var index = 0;
 			args[0] = args[0].replace(/%([a-zA-Z%])/g, (match, format) => {
 				// If we encounter an escaped % then don't increase the array index
 				if (match === '%%') {
 					return match;
 				}
 				index++;
-				const formatter = createDebug.formatters[format];
+				var formatter = createDebug.formatters[format];
 				if (typeof formatter === 'function') {
-					const val = args[index];
+					var val = args[index];
 					match = formatter.call(self, val);
 
 					// Now we need to remove `args[index]` since it's inlined in the `format`
@@ -99,7 +99,7 @@ function setup(env) {
 			// Apply env-specific formatting (colors, etc.)
 			createDebug.formatArgs.call(self, args);
 
-			const logFn = self.log || createDebug.log;
+			var logFn = self.log || createDebug.log;
 			logFn.apply(self, args);
 		}
 
@@ -121,7 +121,7 @@ function setup(env) {
 	}
 
 	function destroy() {
-		const index = createDebug.instances.indexOf(this);
+		var index = createDebug.instances.indexOf(this);
 		if (index !== -1) {
 			createDebug.instances.splice(index, 1);
 			return true;
@@ -130,7 +130,7 @@ function setup(env) {
 	}
 
 	function extend(namespace, delimiter) {
-		const newDebug = createDebug(this.namespace + (typeof delimiter === 'undefined' ? ':' : delimiter) + namespace);
+		var newDebug = createDebug(this.namespace + (typeof delimiter === 'undefined' ? ':' : delimiter) + namespace);
 		newDebug.log = this.log;
 		return newDebug;
 	}
@@ -148,9 +148,9 @@ function setup(env) {
 		createDebug.names = [];
 		createDebug.skips = [];
 
-		let i;
-		const split = (typeof namespaces === 'string' ? namespaces : '').split(/[\s,]+/);
-		const len = split.length;
+		var i;
+		var split = (typeof namespaces === 'string' ? namespaces : '').split(/[\s,]+/);
+		var len = split.length;
 
 		for (i = 0; i < len; i++) {
 			if (!split[i]) {
@@ -168,7 +168,7 @@ function setup(env) {
 		}
 
 		for (i = 0; i < createDebug.instances.length; i++) {
-			const instance = createDebug.instances[i];
+			var instance = createDebug.instances[i];
 			instance.enabled = createDebug.enabled(instance.namespace);
 		}
 	}
@@ -180,7 +180,7 @@ function setup(env) {
 	* @api public
 	*/
 	function disable() {
-		const namespaces = [
+		var namespaces = [
 			...createDebug.names.map(toNamespace),
 			...createDebug.skips.map(toNamespace).map(namespace => '-' + namespace)
 		].join(',');
@@ -200,8 +200,8 @@ function setup(env) {
 			return true;
 		}
 
-		let i;
-		let len;
+		var i;
+		var len;
 
 		for (i = 0, len = createDebug.skips.length; i < len; i++) {
 			if (createDebug.skips[i].test(name)) {

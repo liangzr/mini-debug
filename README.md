@@ -5,12 +5,12 @@
 <img width="647" src="https://user-images.githubusercontent.com/71256/29091486-fa38524c-7c37-11e7-895f-e7ec8e1039b6.png">
 
 A tiny JavaScript debugging utility modelled after Node.js core's debugging
-technique. Works in Node.js and web browsers.
+technique. Works in TinyApp for Alipay.
 
 ## Installation
 
 ```bash
-$ npm install debug
+$ npm install tiny-debug
 ```
 
 ## Usage
@@ -131,17 +131,6 @@ and the Firebug plugin for Firefox (any version).
 <img width="524" src="https://user-images.githubusercontent.com/71256/29092033-b65f9f2e-7c39-11e7-8e32-f6f0d8e865c1.png">
 
 
-## Millisecond diff
-
-When actively developing an application it can be useful to see when the time spent between one `debug()` call and the next. Suppose for example you invoke `debug()` before requesting a resource, and after as well, the "+NNNms" will show you how much time was spent between calls.
-
-<img width="647" src="https://user-images.githubusercontent.com/71256/29091486-fa38524c-7c37-11e7-895f-e7ec8e1039b6.png">
-
-When stdout is not a TTY, `Date#toISOString()` is used, making it more useful for logging the debug information as shown below:
-
-<img width="647" src="https://user-images.githubusercontent.com/71256/29091956-6bd78372-7c39-11e7-8c55-c948396d6edd.png">
-
-
 ## Conventions
 
 If you're using this in one or more of your libraries, you _should_ use the name of your library so that developers may toggle debugging as desired without guessing names. If you have more than one debuggers you _should_ prefix them with your library name and use ":" to separate features. For example "bodyParser" from Connect would then be "connect:bodyParser".  If you append a "*" to the end of your name, it will always be enabled regardless of the setting of the DEBUG environment variable.  You can then use it for normal output as well as debug output.
@@ -200,13 +189,13 @@ For example, if you wanted to add support for rendering a Buffer as hex with
 `%h`, you could do something like:
 
 ```js
-const createDebug = require('tiny-debug')
+var createDebug = require('tiny-debug')
 createDebug.formatters.h = (v) => {
   return v.toString('hex')
 }
 
 // …elsewhere
-const debug = createDebug('foo')
+var debug = createDebug('foo')
 debug('this is hex: %h', new Buffer('hello world'))
 //   foo this is hex: 68656c6c6f20776f726c6421 +0ms
 ```
@@ -271,11 +260,11 @@ log('still goes to stdout, but via console.info now');
 ## Extend
 You can simply extend debugger 
 ```js
-const log = require('tiny-debug')('auth');
+var log = require('tiny-debug')('auth');
 
 //creates new debug instance with extended namespace
-const logSign = log.extend('sign');
-const logLogin = log.extend('login');
+var logSign = log.extend('sign');
+var logLogin = log.extend('login');
 
 log('hello'); // auth hello
 logSign('hello'); //auth:sign hello
@@ -287,7 +276,7 @@ logLogin('hello'); //auth:login hello
 You can also enable debug dynamically by calling the `enable()` method :
 
 ```js
-let debug = require('tiny-debug');
+var debug = require('tiny-debug');
 
 console.log(1, debug.enabled('test'));
 
@@ -326,9 +315,9 @@ temporarily without knowing what was enabled to begin with.
 For example:
 
 ```js
-let debug = require('tiny-debug');
+var debug = require('tiny-debug');
 debug.enable('foo:*,-foo:bar');
-let namespaces = debug.disable();
+var namespaces = debug.disable();
 debug.enable(namespaces);
 ```
 
@@ -341,7 +330,7 @@ After you've created a debug instance, you can determine whether or not it is
 enabled by checking the `enabled` property:
 
 ```javascript
-const debug = require('tiny-debug')('http');
+var debug = require('tiny-debug')('http');
 
 if (debug.enabled) {
   // do stuff...
