@@ -9,7 +9,7 @@ module.exports = function () {
 			});
 		},
 		getItem(key) {
-			return new Promise((resolve => {
+			return new Promise((function (resolve) {
 				my.getStorage({
 					key,
 					success(res) {

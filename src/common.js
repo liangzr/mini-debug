@@ -12,7 +12,7 @@ function setup(env) {
 	createDebug.enable = enable;
 	createDebug.enabled = enabled;
 
-	Object.keys(env).forEach(key => {
+	Object.keys(env).forEach(function (key) {
 		createDebug[key] = env[key];
 	});
 
@@ -78,7 +78,7 @@ function setup(env) {
 
 			// Apply any `formatters` transformations
 			var index = 0;
-			args[0] = args[0].replace(/%([a-zA-Z%])/g, (match, format) => {
+			args[0] = args[0].replace(/%([a-zA-Z%])/g, function (match, format) {
 				// If we encounter an escaped % then don't increase the array index
 				if (match === '%%') {
 					return match;
@@ -182,7 +182,7 @@ function setup(env) {
 	function disable() {
 		var namespaces = [
 			...createDebug.names.map(toNamespace),
-			...createDebug.skips.map(toNamespace).map(namespace => '-' + namespace)
+			...createDebug.skips.map(toNamespace).map(function (namespace) { return '-' + namespace })
 		].join(',');
 		createDebug.enable('');
 		return namespaces;
