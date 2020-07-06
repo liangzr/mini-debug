@@ -1,27 +1,28 @@
+/* global my */
 
-module.exports = function() {
-  return {
-    setItem: function(key, value) {
-      my.setStorage({
-        key,
-        data: value,
-      })
-    },
-    getItem: function(key) {
-      return new Promise(function(resolve) {
-        my.getStorage({
-          key,
-          success: function(res) {
-            resolve(res.data)
-          },
-          fail: function() {
-            resolve()
-          }
-        })
-      }) 
-    },
-    removeItem: function(key) {
-      my.removeStorage({ key })
-    },
-  }
-}
+module.exports = function () {
+	return {
+		setItem(key, value) {
+			my.setStorage({
+				key,
+				data: value
+			});
+		},
+		getItem(key) {
+			return new Promise((resolve => {
+				my.getStorage({
+					key,
+					success(res) {
+						resolve(res.data);
+					},
+					fail() {
+						resolve();
+					}
+				});
+			}));
+		},
+		removeItem(key) {
+			my.removeStorage({key});
+		}
+	};
+};

@@ -1,1 +1,1 @@
- module.exports = require('./browser.js');
+module.exports = require('./browser.js');

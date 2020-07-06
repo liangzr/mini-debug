@@ -97,8 +97,6 @@ exports.colors = [
  * Currently only WebKit-based Web Inspectors, Firefox >= v31,
  * and the Firebug extension (any Firefox version) are known
  * to support "%c" CSS customizations.
- *
- * TODO: add a `localStorage` variable to explicitly enable/disable colors
  */
 
 // eslint-disable-next-line complexity
@@ -138,8 +136,7 @@ function formatArgs(args) {
 		this.namespace +
 		(this.useColors ? ' %c' : ' ') +
 		args[0] +
-		(this.useColors ? '%c ' : ' ') +
-		'+' + module.exports.humanize(this.diff);
+		(this.useColors ? '%c ' : ' ');
 
 	if (!this.useColors) {
 		return;
@@ -204,32 +201,7 @@ function save(namespaces) {
  * @api private
  */
 function load() {
-	r = exports.storage.getItem('tiny-debug');
-
-	return r;
-	return exports.storage.getItem('tiny-debug')
-}
-
-/**
- * Localstorage attempts to return the localstorage.
- *
- * This is necessary because safari throws
- * when a user disables cookies/localstorage
- * and you attempt to access it.
- *
- * @return {LocalStorage}
- * @api private
- */
-
-function localstorage() {
-	try {
-		// TVMLKit (Apple TV JS Runtime) does not have a window object, just localStorage in the global context
-		// The Browser also has localStorage in the global context.
-		return localStorage;
-	} catch (error) {
-		// Swallow
-		// XXX (@Qix-) should we be logging these?
-	}
+	return exports.storage.getItem('tiny-debug');
 }
 
 module.exports = require('./common')(exports);

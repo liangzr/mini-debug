@@ -11,7 +11,6 @@ function setup(env) {
 	createDebug.disable = disable;
 	createDebug.enable = enable;
 	createDebug.enabled = enabled;
-	createDebug.humanize = require('ms');
 
 	Object.keys(env).forEach(key => {
 		createDebug[key] = env[key];
@@ -62,8 +61,6 @@ function setup(env) {
 	* @api public
 	*/
 	function createDebug(namespace) {
-		let prevTime;
-
 		function debug(...args) {
 			// Disabled?
 			if (!debug.enabled) {
@@ -71,14 +68,6 @@ function setup(env) {
 			}
 
 			const self = debug;
-
-			// Set `diff` timestamp
-			const curr = Number(new Date());
-			const ms = curr - (prevTime || curr);
-			self.diff = ms;
-			self.prev = prevTime;
-			self.curr = curr;
-			prevTime = curr;
 
 			args[0] = createDebug.coerce(args[0]);
 
