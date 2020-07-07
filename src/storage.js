@@ -9,7 +9,7 @@ module.exports = function () {
 			});
 		},
 		getItem(key) {
-			return new Promise((function (resolve) {
+			var executor = function (resolve) {
 				my.getStorage({
 					key,
 					success(res) {
@@ -19,7 +19,9 @@ module.exports = function () {
 						resolve();
 					}
 				});
-			}));
+			};
+
+			return new Promise(executor);
 		},
 		removeItem(key) {
 			my.removeStorage({key});
